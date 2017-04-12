@@ -13,6 +13,8 @@ import numpy as np
 
 import os
 
+import tempfile
+
 def readTiff(filename):
     """Read data from the tiff file and return a Pandas dataframe"""
     filenamePrefix = os.path.splitext(os.path.basename(filename))[0]
@@ -43,7 +45,7 @@ def readTiff(filename):
 def writeParquet(inputFilename, df):
     """Export Pandas dataframe as Parquet"""
     filenamePrefix = os.path.splitext(os.path.basename(inputFilename))[0]
-    outFilepath = ''.join(['/tmp/', filenamePrefix, '.parq'])
+    outFilepath = os.path.join(tempfile.gettempdir(), ''.join([filenamePrefix, '.parq']))
     fp.write(outFilepath, df, compression='GZIP')
     return outFilepath
 
