@@ -22,12 +22,12 @@ def readTiff(filename):
     im = io.imread(filename)
 
     # Reshape 3D to one giant 2D
-    imgdata2d = im.reshape(im.shape[0] * im.shape[1], im.shape[2])
+    imgdata2d = im.reshape(im.shape[0], im.shape[1] * im.shape[2])
     index = range(0, im.shape[0] * im.shape[1])
 
     # Convert to Pandas dataframe
     df = pd.DataFrame(imgdata2d.astype(np.int32),
-                      columns=[str(i) for i in range(0, 256)],
+                      columns=[str(i) for i in range(0, im.shape[1] * im.shape[2])],
                       index=index)
 
     # TODO Optimize by squeezing or by finding another way
