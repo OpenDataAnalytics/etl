@@ -23,7 +23,7 @@ def readTiff(filename):
 
     # Reshape 3D to one giant 2D
     imgdata2d = im.reshape(im.shape[0], im.shape[1] * im.shape[2])
-    index = range(0, im.shape[0] * im.shape[1])
+    index = range(0, im.shape[0])
 
     # Convert to Pandas dataframe
     df = pd.DataFrame(imgdata2d.astype(np.int32),
@@ -47,6 +47,7 @@ def writeParquet(inputFilename, df):
     filenamePrefix = os.path.splitext(os.path.basename(inputFilename))[0]
     outFilepath = os.path.join(tempfile.gettempdir(), ''.join([filenamePrefix, '.parq']))
     fp.write(outFilepath, df, compression='GZIP')
+    print outFilepath	
     return outFilepath
 
 
